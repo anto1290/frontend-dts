@@ -24,7 +24,7 @@ function App() {
   const handlerUpdate = (id) => {
     setShowEdit(true);
     setId(id);
-    axios.get(`http://localhost:5000/api/list/${id}`)
+    axios.get(`/api/list/${id}`)
       .then(res => res.data.list)
       .then(data => {
         setTitle(data.title);
@@ -36,7 +36,7 @@ function App() {
   }
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/list')
+    axios.get('/api/list')
       .then(res => {
         setData(res.data.lists);
       }
@@ -53,7 +53,7 @@ function App() {
       confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
       if (result.value) {
-        axios.delete(`http://localhost:5000/api/list/${id}`)
+        axios.delete(`/api/list/${id}`)
           .then(res => {
             MySwal.fire(
               'Deleted!',
@@ -73,11 +73,11 @@ function App() {
     })
   }
   const handlerDone = (id) => {
-    axios.put(`http://localhost:5000/api/list/${id}`, {
+    axios.put(`/api/list/${id}`, {
       is_done: true
     }).then(res => {
       console.log(res)
-      axios.get('http://localhost:5000/api/list')
+      axios.get('/api/list')
         .then(res => {
           setData(res.data.lists);
         }
@@ -89,7 +89,7 @@ function App() {
 
   const createHandler = (e) => {
     e.preventDefault();
-    axios.post('http://localhost:5000/api/list', {
+    axios.post('/api/list', {
       'title': title,
       'desciption': description,
       'is_done': isDone
@@ -107,14 +107,14 @@ function App() {
   }
   const updateHandler = (e) => {
     e.preventDefault();
-    axios.put(`http://localhost:5000/api/list/${id}`, {
+    axios.put(`/api/list/${id}`, {
       'title': title,
       'desciption': description,
       'is_done': isDone
     })
       .then(res => {
         console.log(res);
-        axios.get('http://localhost:5000/api/list')
+        axios.get('/api/list')
           .then(res => {
             setData(res.data.lists);
           }
